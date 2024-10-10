@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gold Calculation</title>
+</head>
+<body>
+    <h1>Gold Calculation</h1>
+<div id="wrapper">
+<form>
+    <label for="input">Enter the Gold rate:</label>
+    <input type="number" id="goldRate" required> <br><br>
+    
+    <label for="input">Enter the Gold's gram:</label>
+    <input type="number" id="goldGram" required> <br><br>
+    
+    <label for="input">Enter the Waste percentage:</label>
+    <input type="number" id="waste%" required> <br><br>
+
+    <button type="submit" onclick="call(this)">Calculate</button>
+</form>
+
+
+</div>
+
+<p id="notValid"></p>
+<p id="Current Gold_Rate"></p>
+<p id="Sethaaram"></p>
+<p id="temp"></p>
+<p id="GST"></p>
+<p id="Total amount"></p>
+
+
+<script>
+function call(x)
+{
+x.disabled = true
+
+//User inputs:
+let gold_rate = Number(document.getElementById("goldRate").value)
+let gold_gram = Number(document.getElementById("goldGram").value)
+let wast_perc = Number(document.getElementById("waste%").value)
+
+if(gold_rate > 0 || gold_gram > 0 || wast_perc >  0)
+{
+//Calculation 1
+let GoldRate = gold_rate * gold_gram
+ 
+//Calculation 2
+let Sethaaram = (wast_perc / 100) * gold_rate
+let temp = GoldRate + Sethaaram
+
+//Calculation 3
+let GST = (3 / 100) * temp
+
+//Final Result
+let result = (temp + GST).toFixed(2)
+
+
+//Showing Calculation on HTML
+let p = document.createElement('p')
+p.id="Calculations"
+document.getElementById("wrapper").appendChild(p).innerHTML = "Calculations:"
+
+document.getElementById("Current Gold_Rate").innerHTML = `Current Gold rate = ${gold_rate} * ${gold_gram}`
+document.getElementById("Sethaaram").innerHTML = `Sethaaram = ${wast_perc} / 100 * ${gold_rate}`
+document.getElementById("temp").innerHTML = `Current Gold rate + Sethaaram = ${temp}`
+document.getElementById("GST").innerHTML = `GST = 3 / 100 * ${temp}`
+document.getElementById("Total amount").innerHTML = `Total : R.s.${result}`
+}
+else
+{
+    document.getElementById("notValid").innerHTML = "Please enter the Details"
+}
+}
+</script>
+</body>
+</html>
